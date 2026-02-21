@@ -52,6 +52,17 @@ function initVariations() {
     const variationBtns = document.querySelectorAll('.variation-btn');
     if (!variationBtns.length) return;
 
+    // Load the variations data from the container
+    const variationsContainer = document.querySelector('.variations-container');
+    let productVariations = [];
+    if (variationsContainer && variationsContainer.getAttribute('data-product_variations')) {
+        try {
+            productVariations = JSON.parse(variationsContainer.getAttribute('data-product_variations'));
+        } catch (e) {
+            console.error('Failed to parse product variations:', e);
+        }
+    }
+
     variationBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const parent = btn.closest('.custom-variation-buttons');
@@ -69,8 +80,78 @@ function initVariations() {
             
             // Hide error if shown
             btn.closest('.attribute-selector').querySelector('.error-msg').classList.add('hidden');
+
+            // Resolve the variation_id from the selected attributes
+            resolveVariation(productVariations);
         });
     });
+}
+
+/**
+ * 2b. Resolve Variation ID from selected attributes
+ * Matches the currently selected attribute values against the product's
+ * available variations and sets the hidden variation_id input accordingly.
+ */
+function resolveVariation(productVariations) {
+    const variationIdInput = document.querySelector('input.variation_id');
+    if (!variationIdInput || !productVariations.length) return;
+
+    // Gather all currently selected attribute values
+    const selects = document.querySelectorAll('.custom-variation-select');
+    const selectedAttrs = {};
+    let allSelected = true;
+
+    selects.forEach(s => {
+        const attrName = s.getAttribute('data-attribute_name');
+        const attrVal = s.value;
+        if (!attrVal) {
+            allSelected = false;
+        }
+        selectedAttrs[attrName] = attrVal;
+    });
+
+    if (!allSelected) {
+        variationIdInput.value = 0;
+        return;
+    }
+
+    // Find the matching variation
+    const matchedVariation = productVariations.find(variation => {
+        // Each variation has an 'attributes' object like { attribute_pa_size: "l", attribute_pa_color: "black" }
+        // A value of "" in the variation means "any" (matches all)
+        return Object.keys(selectedAttrs).every(attrName => {
+            const variationVal = variation.attributes[attrName];
+            // Empty string in variation = "Any" option, matches everything
+            if (!variationVal || variationVal === '') return true;
+            return variationVal === selectedAttrs[attrName];
+        });
+    });
+
+    if (matchedVariation) {
+        variationIdInput.value = matchedVariation.variation_id;
+
+        // Update price display if available
+        if (matchedVariation.price_html) {
+            const priceDisplay = document.querySelector('.price-display');
+            if (priceDisplay) {
+                priceDisplay.innerHTML = matchedVariation.price_html;
+            }
+        }
+
+        // Update gallery image if variation has one
+        if (matchedVariation.image && matchedVariation.image.full_src) {
+            const mainImg = document.getElementById('main-product-image');
+            if (mainImg) {
+                mainImg.classList.add('fading');
+                setTimeout(() => {
+                    mainImg.src = matchedVariation.image.full_src;
+                    mainImg.classList.remove('fading');
+                }, 200);
+            }
+        }
+    } else {
+        variationIdInput.value = 0;
+    }
 }
 
 /**
@@ -183,6 +264,10 @@ function initCartDrawer() {
             });
             if (hasError) return;
 
+            // Note: variation_id may be 0 if JS-side resolution couldn't find a match
+            // (e.g. empty product_variations data). The server will resolve it from the attributes.
+
+
             const submitBtn = document.getElementById('add-to-cart-submit');
             const btnText = submitBtn.querySelector('.btn-text');
             const btnIcon = submitBtn.querySelector('.btn-icon');
@@ -197,8 +282,8 @@ function initCartDrawer() {
             const formData = new FormData(addToCartForm);
             formData.append('action', 'emerald_add_to_cart');
 
-            // Use our custom AJAX endpoint
-            const ajaxUrl = (typeof emerald_ajax !== 'undefined') ? emerald_ajax.url : '/wp-admin/admin-ajax.php';
+            // Use our custom AJAX endpoint (ajax_url from wp_localize_script in enqueue.php)
+            const ajaxUrl = (typeof emerald_ajax !== 'undefined') ? emerald_ajax.ajax_url : '/wp-admin/admin-ajax.php';
 
             fetch(ajaxUrl, {
                 method: 'POST',
@@ -206,7 +291,24 @@ function initCartDrawer() {
             })
             .then(res => res.json())
             .then(data => {
-                if (data && data.fragments) {
+                // Check for explicit error response from wp_send_json_error
+                if (data.success === false) {
+                    const errorMsg = (data.data && data.data.message) ? data.data.message : 'Could not add to cart.';
+                    console.error('Add to cart error:', errorMsg);
+                    btnText.innerText = errorMsg;
+                    spinner.classList.add('hidden');
+                    btnIcon.innerText = "error";
+                    btnIcon.classList.remove('hidden');
+                    submitBtn.disabled = false;
+                    setTimeout(() => {
+                        btnText.innerText = "Add to Cart";
+                        btnIcon.innerText = "shopping_bag";
+                    }, 3000);
+                    return;
+                }
+
+                // Success — update cart fragments
+                if (data.fragments) {
                     Object.keys(data.fragments).forEach(key => {
                         const el = document.querySelector(key);
                         if (el) el.outerHTML = data.fragments[key];
@@ -235,7 +337,7 @@ function initCartDrawer() {
                 }, 500);
             })
             .catch(err => {
-                console.error(err);
+                console.error('Fetch error:', err);
                 btnText.innerText = "Error";
                 spinner.classList.add('hidden');
                 btnIcon.classList.remove('hidden');

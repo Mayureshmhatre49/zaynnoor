@@ -117,30 +117,55 @@ function emerald_ajax_add_to_cart() {
 		$product_id = absint( $_POST['add-to-cart'] );
 	}
 
+	// Validate we have a product
+	if ( ! $product_id ) {
+		wp_send_json_error( array( 'message' => 'Invalid product.' ) );
+		wp_die();
+	}
+
+	// Clear any existing WC notices before attempting
+	wc_clear_notices();
+
+	// If variation_id is 0 but we have variation attributes,
+	// resolve the variation_id server-side using WooCommerce's built-in matcher.
+	// This handles the case where the JS-side resolution fails (e.g. empty product_variations JSON).
+	$product_obj = wc_get_product( $product_id );
+	if ( $product_obj && $product_obj->is_type( 'variable' ) && ! $variation_id && ! empty( $variations ) ) {
+		$data_store   = WC_Data_Store::load( 'product' );
+		$variation_id = $data_store->find_matching_product_variation( $product_obj, $variations );
+	}
+
 	if ( $variation_id ) {
 		$added = WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $variations );
-	} else {
+	} elseif ( $product_obj && ! $product_obj->is_type( 'variable' ) ) {
+		// Simple product
 		$added = WC()->cart->add_to_cart( $product_id, $quantity );
+	} else {
+		// Variable product but no variation could be resolved
+		wp_send_json_error( array( 'message' => 'Please select all product options.' ) );
+		wp_die();
 	}
 
 	if ( $added ) {
 		WC_AJAX::get_refreshed_fragments();
 	} else {
-		wp_send_json_error( array( 'message' => 'Could not add to cart.' ) );
+		// Gather WooCommerce error notices for helpful error message
+		$notices = wc_get_notices( 'error' );
+		wc_clear_notices();
+		$error_messages = array();
+		if ( ! empty( $notices ) ) {
+			foreach ( $notices as $notice ) {
+				$error_messages[] = isset( $notice['notice'] ) ? wp_strip_all_tags( $notice['notice'] ) : wp_strip_all_tags( $notice );
+			}
+		}
+		wp_send_json_error( array(
+			'message' => ! empty( $error_messages ) ? implode( ' ', $error_messages ) : 'Could not add to cart.',
+		) );
 	}
 	wp_die();
 }
 
-/**
- * Pass AJAX URL and nonce to JS
- */
-add_action( 'wp_enqueue_scripts', 'emerald_localize_ajax', 20 );
-function emerald_localize_ajax() {
-	wp_localize_script( 'emerald-main', 'emerald_ajax', array(
-		'url'   => admin_url( 'admin-ajax.php' ),
-		'nonce' => wp_create_nonce( 'emerald_nonce' ),
-	));
-}
+// Note: AJAX URL and nonce are localized in inc/enqueue.php to avoid duplication.
 
 /**
  * Force classic shortcode Cart & Checkout pages on theme activation.

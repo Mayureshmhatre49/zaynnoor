@@ -7,7 +7,7 @@ get_header(); ?>
 
 <section class="relative h-screen w-full overflow-hidden flex items-center justify-center">
 	<div class="absolute inset-0 z-0">
-		<div class="w-full h-full bg-cover bg-[9%_0] md:bg-center bg-no-repeat transition-transform duration-[30s] hover:scale-105" style="background-image: url('http://sale.local/wp-content/uploads/2026/02/Gemini_Generated_Image_y1oitry1oitry1oi-scaled.png');"></div>
+		<div class="w-full h-full bg-cover bg-[9%_0] md:bg-center bg-no-repeat transition-transform duration-[30s] hover:scale-105" style="background-image: url('https://flyseastravels.com/sale/wp-content/uploads/2026/02/sale-banner-scaled.png');"></div>
 		<div class="absolute inset-0 bg-hero-gradient-home bg-opacity-80 mix-blend-multiply"></div>
 		<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent opacity-90"></div>
 		<div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
@@ -56,12 +56,12 @@ get_header(); ?>
 				<div class="relative z-10 grid grid-cols-2 gap-6 items-center">
 					<div class="space-y-6 pt-12">
 						<div class="relative overflow-hidden rounded-sm aspect-[3/4]">
-							<img alt="Detail of fabric" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-700 hover:scale-105 transform" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7DoTfChg3IaJ2EcBRWMiEsEJ5fE5KNzuTHVITJ8gj0oljgqkVyBTrI6odbZXFImO4OkWeOPFi0HVrsiYWfGdwRndLh5cQwoupeylJLSH45OCDMQ4RbgTjikRJGQagW7ZADQ_gUjky8pyuNxmVZ3takJZ2qHi3xTbKfTc0J1cJu5MA1O9TbqEfpUA50b_qqJ7l7vFcplI4mjBkbT3eP_AjcKJq6dAGVnAUZ77wRYlqvPvgmj6_qEjDDxAbtS-3xaQbgcai5esFaWE"/>
+							<img alt="Detail of fabric" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-700 hover:scale-105 transform" src="https://flyseastravels.com/sale/wp-content/uploads/2026/02/s2.png"/>
 						</div>
 					</div>
 					<div class="space-y-6">
 						<div class="relative overflow-hidden rounded-sm aspect-[3/4]">
-							<img alt="Model in profile" class="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-700 hover:scale-105 transform grayscale-[30%]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyEybtbEKvboFZqBpI-o9Wh9knIxiwNcBJUALa6PtTmj9HziUvTdOf8MfIUHMO6D93iEXpQzrt5vTDPdi2rBFtFBVC3uJBM9NH6J98pws3m4qZu6dKTFSpX80g6Doza7Zbq1ZNCailpFbVBQd15xqNz8BfX3nvD64BuZS9uGznpM4zTBScPOE-BOvBeieeTmleFJwBCb5_LuMVtXoibYbLSaZYObMiLRir_CrbW2urV0pu3TrkjABsEVmCCwMKdHuj1b7a6p2Uc00"/>
+							<img alt="Model in profile" class="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-700 hover:scale-105 transform grayscale-[30%]" src="https://flyseastravels.com/sale/wp-content/uploads/2026/02/s1.png"/>
 						</div>
 					</div>
 				</div>

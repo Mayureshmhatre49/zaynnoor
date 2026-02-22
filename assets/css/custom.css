@@ -84,10 +84,14 @@ textarea:focus {
   transform: translateX(0);
 }
 
-/* Header scrolled state */
-header.scrolled {
+/* Header styles - Always solid black */
+header {
   background-color: #000000 !important;
   backdrop-filter: none !important;
+  transition: all 0.3s ease;
+}
+
+header.scrolled {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 

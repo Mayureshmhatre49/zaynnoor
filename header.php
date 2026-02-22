@@ -10,7 +10,7 @@
 <?php wp_body_open(); ?>
 
 <div class="relative flex min-h-screen w-full flex-col">
-	<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background-dark border-b border-white/5">
+	<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-black border-b border-white/5">
 		<div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-20 md:h-24 flex items-center justify-between">
 			<!-- Logo -->
 			<div class="flex items-center gap-3">

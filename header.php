@@ -14,14 +14,9 @@
 		<div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-20 md:h-24 flex items-center justify-between">
 			<!-- Logo -->
 			<div class="flex items-center gap-3">
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex items-center gap-3 text-white hover:text-gold transition-colors">
-					<div class="w-8 h-8 text-gold">
-						<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-							<path d="M12 2C9.5 2 7.2 2.9 5.4 4.4C7.9 6.2 9.5 9.1 9.5 12.5C9.5 16.9 6.9 20.8 3.2 22.4C3.8 22.5 4.4 22.5 5 22.5C10.5 22.5 15 18 15 12.5C15 9 13.2 5.9 10.5 4.1C11 4.05 11.5 4 12 4C16.4 4 20 7.6 20 12C20 16.4 16.4 20 12 20C10.8 20 9.7 19.7 8.7 19.3C9.6 18.5 10.3 17.5 10.8 16.4C12.4 15.7 13.5 14.1 13.5 12.2C13.5 10 11.7 8.2 9.5 8.2C9.3 8.2 9.2 8.2 9 8.25C9.6 6.8 10.7 5.6 12 4.9V2Z"></path>
-						</svg>
-					</div>
-					<span class="text-xl md:text-2xl font-bold tracking-widest uppercase">Jubba</span>
-				</a>
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex items-center gap-3">
+				<img src="<?php echo esc_url( home_url( '/wp-content/uploads/2026/02/z_logo.jpg' ) ); ?>" alt="<?php bloginfo( 'name' ); ?>" class="h-10 md:h-14 w-auto object-contain" />
+			</a>
 			</div>
 			
 			<!-- Desktop Menu -->

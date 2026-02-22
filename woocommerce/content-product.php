@@ -21,7 +21,7 @@ if ( empty( $product ) || ! $product->is_visible() ) {
         </a>
         
         <!-- Hover Overlay -->
-        <div class="absolute inset-x-4 bottom-4 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 flex flex-col gap-2 z-20">
+        <div class="absolute inset-x-4 bottom-4 translate-y-0 opacity-100 md:translate-y-full md:opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 flex flex-col gap-2 z-20">
             <a href="<?php echo esc_url( $product->get_permalink() ); ?>" class="w-full py-3 bg-white text-background-dark text-[10px] font-bold uppercase tracking-widest text-center shadow-xl hover:bg-gold hover:text-white transition-colors">
                 View Details
             </a>

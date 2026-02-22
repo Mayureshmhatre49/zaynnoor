@@ -30,7 +30,7 @@ function initGallery() {
 
             // Fade out
             mainImg.classList.add('fading');
-            
+
             // Highlight thumb
             thumbs.forEach(t => t.classList.remove('border-primary', 'ring-2', 'ring-primary/20', 'opacity-100'));
             thumbs.forEach(t => t.classList.add('border-transparent', 'opacity-60'));
@@ -77,7 +77,7 @@ function initVariations() {
             // Update UI
             parent.querySelectorAll('.variation-btn').forEach(b => b.classList.remove('selected', 'border-primary', 'bg-primary/10', 'text-primary'));
             btn.classList.add('selected', 'border-primary', 'bg-primary/10', 'text-primary');
-            
+
             // Hide error if shown
             btn.closest('.attribute-selector').querySelector('.error-msg').classList.add('hidden');
 
@@ -164,7 +164,7 @@ function initQuantity() {
             const input = btn.closest('div').querySelector('input[type="number"]');
             let val = parseInt(input.value);
             const action = btn.getAttribute('data-action');
-            
+
             if (action === 'plus') {
                 input.value = val + 1;
             } else if (action === 'minus' && val > 1) {
@@ -201,22 +201,24 @@ function initModals() {
 
     // Size Recommender Logic
     const recBtn = document.getElementById('get-recommendation');
-    recBtn.addEventListener('click', () => {
-        const h = parseInt(document.getElementById('user-height').value);
-        const w = parseInt(document.getElementById('user-weight').value);
-        const resultDiv = document.getElementById('recommendation-result');
-        const output = document.getElementById('recommended-size-output');
+    if (recBtn) {
+        recBtn.addEventListener('click', () => {
+            const h = parseInt(document.getElementById('user-height').value);
+            const w = parseInt(document.getElementById('user-weight').value);
+            const resultDiv = document.getElementById('recommendation-result');
+            const output = document.getElementById('recommended-size-output');
 
-        if (!h || !w) return alert('Please enter height and weight');
+            if (!h || !w) return alert('Please enter height and weight');
 
-        let size = "L"; // Default
-        if (h < 170) size = "S";
-        else if (h < 176 && w < 80) size = "M";
-        else if (h > 182 || w > 90) size = "XL";
+            let size = "L"; // Default
+            if (h < 170) size = "S";
+            else if (h < 176 && w < 80) size = "M";
+            else if (h > 182 || w > 90) size = "XL";
 
-        output.innerText = size;
-        resultDiv.classList.remove('hidden');
-    });
+            output.innerText = size;
+            resultDiv.classList.remove('hidden');
+        });
+    }
 }
 
 /**
@@ -250,7 +252,7 @@ function initCartDrawer() {
 
     // AJAX Add to Cart
     if (addToCartForm) {
-        addToCartForm.addEventListener('submit', function(e) {
+        addToCartForm.addEventListener('submit', function (e) {
             e.preventDefault();
 
             // Validation for variations
@@ -289,63 +291,63 @@ function initCartDrawer() {
                 method: 'POST',
                 body: formData
             })
-            .then(res => res.json())
-            .then(data => {
-                // Check for explicit error response from wp_send_json_error
-                if (data.success === false) {
-                    const errorMsg = (data.data && data.data.message) ? data.data.message : 'Could not add to cart.';
-                    console.error('Add to cart error:', errorMsg);
-                    btnText.innerText = errorMsg;
+                .then(res => res.json())
+                .then(data => {
+                    // Check for explicit error response from wp_send_json_error
+                    if (data.success === false) {
+                        const errorMsg = (data.data && data.data.message) ? data.data.message : 'Could not add to cart.';
+                        console.error('Add to cart error:', errorMsg);
+                        btnText.innerText = errorMsg;
+                        spinner.classList.add('hidden');
+                        btnIcon.innerText = "error";
+                        btnIcon.classList.remove('hidden');
+                        submitBtn.disabled = false;
+                        setTimeout(() => {
+                            btnText.innerText = "Add to Cart";
+                            btnIcon.innerText = "shopping_bag";
+                        }, 3000);
+                        return;
+                    }
+
+                    // Success — update cart fragments
+                    if (data.fragments) {
+                        Object.keys(data.fragments).forEach(key => {
+                            const el = document.querySelector(key);
+                            if (el) el.outerHTML = data.fragments[key];
+                        });
+                    }
+
+                    // Success state
+                    btnText.innerText = "Added ✓";
                     spinner.classList.add('hidden');
-                    btnIcon.innerText = "error";
+                    btnIcon.innerText = "check";
+                    btnIcon.classList.remove('hidden');
+
+                    // Open drawer
+                    setTimeout(() => {
+                        if (drawer) {
+                            drawer.classList.add('open');
+                            document.body.style.overflow = 'hidden';
+                        }
+
+                        // Reset button
+                        setTimeout(() => {
+                            btnText.innerText = "Add to Cart";
+                            btnIcon.innerText = "shopping_bag";
+                            submitBtn.disabled = false;
+                        }, 2000);
+                    }, 500);
+                })
+                .catch(err => {
+                    console.error('Fetch error:', err);
+                    btnText.innerText = "Error";
+                    spinner.classList.add('hidden');
                     btnIcon.classList.remove('hidden');
                     submitBtn.disabled = false;
                     setTimeout(() => {
                         btnText.innerText = "Add to Cart";
-                        btnIcon.innerText = "shopping_bag";
-                    }, 3000);
-                    return;
-                }
-
-                // Success — update cart fragments
-                if (data.fragments) {
-                    Object.keys(data.fragments).forEach(key => {
-                        const el = document.querySelector(key);
-                        if (el) el.outerHTML = data.fragments[key];
-                    });
-                }
-                
-                // Success state
-                btnText.innerText = "Added ✓";
-                spinner.classList.add('hidden');
-                btnIcon.innerText = "check";
-                btnIcon.classList.remove('hidden');
-
-                // Open drawer
-                setTimeout(() => {
-                    if (drawer) {
-                        drawer.classList.add('open');
-                        document.body.style.overflow = 'hidden';
-                    }
-                    
-                    // Reset button
-                    setTimeout(() => {
-                        btnText.innerText = "Add to Cart";
-                        btnIcon.innerText = "shopping_bag";
-                        submitBtn.disabled = false;
                     }, 2000);
-                }, 500);
-            })
-            .catch(err => {
-                console.error('Fetch error:', err);
-                btnText.innerText = "Error";
-                spinner.classList.add('hidden');
-                btnIcon.classList.remove('hidden');
-                submitBtn.disabled = false;
-                setTimeout(() => {
-                    btnText.innerText = "Add to Cart";
-                }, 2000);
-            });
+                });
         });
     }
 }
@@ -388,7 +390,7 @@ function initWhatsApp() {
     waBtn.addEventListener('click', () => {
         const num = waBtn.getAttribute('data-wa');
         let tpl = waBtn.getAttribute('data-tpl');
-        
+
         // Grab current selections
         const selects = document.querySelectorAll('.custom-variation-select');
         let selections = [];

@@ -52,7 +52,7 @@ while ( have_posts() ) :
         
         <!-- Breadcrumbs -->
         <div class="flex flex-wrap gap-2 py-4 mb-4 text-sm mt-24">
-			<?php woocommerce_breadcrumb( array( 'wrap_before' => '', 'wrap_after' => '', 'delimiter' => '<span class="text-slate-400 dark:text-[#5a6b61] mx-2">/</span>', 'before' => '<span class="text-slate-500 hover:text-primary transition-colors">', 'after' => '</span>' ) ); ?>
+			<?php woocommerce_breadcrumb( array( 'wrap_before' => '', 'wrap_after' => '', 'delimiter' => '<span class="text-slate-400 dark:text-[#555] mx-2">/</span>', 'before' => '<span class="text-slate-500 hover:text-primary transition-colors">', 'after' => '</span>' ) ); ?>
         </div>
 
         <!-- Product Hero Section -->

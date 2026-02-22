@@ -127,7 +127,7 @@ get_header(); ?>
 					$badge_class = $is_first ? 'bg-accent-gold text-background-darker' : 'bg-white/10 backdrop-blur-md text-white border border-white/10';
 					$img_url = has_post_thumbnail() ? get_the_post_thumbnail_url($product->get_id(), 'large') : 'https://lh3.googleusercontent.com/aida-public/AB6AXuC7DoTfChg3IaJ2EcBRWMiEsEJ5fE5KNzuTHVITJ8gj0oljgqkVyBTrI6odbZXFImO4OkWeOPFi0HVrsiYWfGdwRndLh5cQwoupeylJLSH45OCDMQ4RbgTjikRJGQagW7ZADQ_gUjky8pyuNxmVZ3takJZ2qHi3xTbKfTc0J1cJu5MA1O9TbqEfpUA50b_qqJ7l7vFcplI4mjBkbT3eP_AjcKJq6dAGVnAUZ77wRYlqvPvgmj6_qEjDDxAbtS-3xaQbgcai5esFaWE'; // Default fallback
 					?>
-					<div class="group card-hover-glow relative bg-[#05110c] border border-white/5 p-8 rounded-sm flex flex-col hover:border-accent-gold/40 transition-all duration-500">
+					<div class="group card-hover-glow relative bg-[#080808] border border-white/5 p-8 rounded-sm flex flex-col hover:border-accent-gold/40 transition-all duration-500">
 						<div class="relative w-full aspect-[4/5] overflow-hidden rounded-sm mb-8 bg-background-dark">
 							<a href="<?php the_permalink(); ?>" class="block w-full h-full">
 								<img alt="<?php echo esc_attr( $product->get_name() ); ?>" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 filter brightness-90 group-hover:brightness-100" src="<?php echo esc_url($img_url); ?>"/>

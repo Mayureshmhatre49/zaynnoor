@@ -69,7 +69,7 @@ function emerald_checkbox_cb($args) {
 function emerald_settings_page_html() {
     if (!current_user_can('manage_options')) return;
     ?>
-    <div class="wrap" style="background: #0B1812; color: #fff; padding: 30px; border-radius: 8px; margin-top: 20px;">
+    <div class="wrap" style="background: #0a0a0a; color: #fff; padding: 30px; border-radius: 8px; margin-top: 20px;">
         <h1 style="color: #D4AF37; font-family: 'Cinzel', serif; margin-bottom: 30px;"><?php echo esc_html(get_admin_page_title()); ?></h1>
         <form action="options.php" method="post" style="max-width: 800px;">
             <?php

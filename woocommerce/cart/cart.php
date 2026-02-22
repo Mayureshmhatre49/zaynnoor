@@ -146,7 +146,7 @@ do_action( 'woocommerce_before_cart' ); ?>
                                     <td colspan="6" class="actions py-8">
                                         <div class="flex flex-col md:flex-row justify-between items-center gap-6">
                                             <?php if ( wc_coupons_enabled() ) { ?>
-                                                <div class="coupon flex items-center border-b border-white/20 hover:border-gold/60 transition-colors pb-1">
+                                                <div class="coupon flex items-center">
                                                     <input type="text" name="coupon_code" class="input-text bg-transparent border-none focus:ring-0 text-white placeholder-slate-500 text-sm py-1" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" /> 
                                                     <button type="submit" class="button font-bold text-[10px] uppercase tracking-widest text-gold hover:text-white transition-colors" name="apply_coupon" value="<?php esc_attr_e( 'Apply', 'woocommerce' ); ?>"><?php esc_attr_e( 'Apply', 'woocommerce' ); ?></button>
                                                     <?php do_action( 'woocommerce_cart_coupon' ); ?>

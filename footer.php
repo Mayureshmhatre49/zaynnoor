@@ -51,9 +51,7 @@
 				<img src="<?php echo esc_url( home_url( '/wp-content/uploads/2026/02/z_logo.jpg' ) ); ?>" alt="<?php bloginfo( 'name' ); ?>" class="h-10 md:h-14 w-auto object-contain" />
 				<p class="text-slate-400 text-sm font-light max-w-md">Refining the essence of modern modesty through timeless craftsmanship.</p>
 				<div class="flex gap-8 text-slate-400">
-					<a class="hover:text-gold transition-colors text-xs uppercase tracking-widest" href="#">Instagram</a>
-					<a class="hover:text-gold transition-colors text-xs uppercase tracking-widest" href="#">WhatsApp</a>
-					<a class="hover:text-gold transition-colors text-xs uppercase tracking-widest" href="#">Email</a>
+					<a class="hover:text-gold transition-colors text-xs uppercase tracking-widest" href="https://wa.me/919941269673" target="_blank">WhatsApp</a>
 				</div>
 			</div>
 			

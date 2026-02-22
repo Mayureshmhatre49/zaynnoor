@@ -48,7 +48,7 @@
 	<footer class="bg-emerald-dark border-t border-white/5 py-12 md:py-16 mt-auto">
 		<div class="layout-container max-w-[1440px] mx-auto px-6 text-center">
 			<div class="flex flex-col items-center gap-6 mb-8 md:mb-12">
-				<span class="text-2xl md:text-3xl font-cinzel tracking-widest text-white/90 uppercase">Jubba</span>
+				<img src="<?php echo esc_url( home_url( '/wp-content/uploads/2026/02/z_logo.jpg' ) ); ?>" alt="<?php bloginfo( 'name' ); ?>" class="h-10 md:h-14 w-auto object-contain" />
 				<p class="text-slate-400 text-sm font-light max-w-md">Refining the essence of modern modesty through timeless craftsmanship.</p>
 				<div class="flex gap-8 text-slate-400">
 					<a class="hover:text-gold transition-colors text-xs uppercase tracking-widest" href="#">Instagram</a>
@@ -58,7 +58,7 @@
 			</div>
 			
 			<div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500 uppercase tracking-wider">
-				<p>&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. All rights reserved.</p>
+				<p>&copy; <?php echo date('Y'); ?> Zaynnoor. All rights reserved.</p>
 				<div class="flex gap-6">
 					<a class="hover:text-slate-300 transition-colors" href="#">Privacy Policy</a>
 					<a class="hover:text-slate-300 transition-colors" href="#">Terms of Service</a>

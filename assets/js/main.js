@@ -289,10 +289,30 @@ function initCartDrawer() {
 
             fetch(ajaxUrl, {
                 method: 'POST',
-                body: formData
+                body: formData,
+                credentials: 'same-origin'
             })
-                .then(res => res.json())
-                .then(data => {
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error('Server returned ' + res.status);
+                    }
+                    return res.text();
+                })
+                .then(text => {
+                    // Try to parse JSON — WordPress sometimes prepends HTML to AJAX responses
+                    let data;
+                    try {
+                        // Find the start of JSON in case there is prefixed output
+                        const jsonStart = text.indexOf('{');
+                        if (jsonStart > 0) {
+                            text = text.substring(jsonStart);
+                        }
+                        data = JSON.parse(text);
+                    } catch (parseErr) {
+                        console.error('JSON parse error:', parseErr, 'Raw response:', text.substring(0, 200));
+                        throw new Error('Invalid response from server');
+                    }
+
                     // Check for explicit error response from wp_send_json_error
                     if (data.success === false) {
                         const errorMsg = (data.data && data.data.message) ? data.data.message : 'Could not add to cart.';
@@ -339,14 +359,16 @@ function initCartDrawer() {
                     }, 500);
                 })
                 .catch(err => {
-                    console.error('Fetch error:', err);
-                    btnText.innerText = "Error";
+                    console.error('Add to cart fetch error:', err);
+                    btnText.innerText = "Try Again";
                     spinner.classList.add('hidden');
+                    btnIcon.innerText = "error";
                     btnIcon.classList.remove('hidden');
                     submitBtn.disabled = false;
                     setTimeout(() => {
                         btnText.innerText = "Add to Cart";
-                    }, 2000);
+                        btnIcon.innerText = "shopping_bag";
+                    }, 3000);
                 });
         });
     }

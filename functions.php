@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define Theme Constants
-define( 'EMERALD_VERSION', '1.0.0' );
+define( 'EMERALD_VERSION', '1.0.1' );
 define( 'EMERALD_DIR', get_template_directory() );
 define( 'EMERALD_URI', get_template_directory_uri() );
 

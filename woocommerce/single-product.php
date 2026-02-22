@@ -32,7 +32,7 @@ while ( have_posts() ) :
 
 	// Gallery images
 	$attachment_ids = $product->get_gallery_image_ids();
-	$main_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url( $product_id, 'full' ) : 'https://lh3.googleusercontent.com/aida-public/AB6AXuBPbTPVPWIn1p7hOTFTSbtewQigPhl_IcLRBDBU0kT9loeCMJ-XoOvb71lpj_207IGmqCQJF_mAwpl0AZAQ1HQtT2POSsHhprfakhr5PV7Asm3KJwexHUJYhOaGZ7-K0LlbvKmESlbwkK6nx0F8W8753alsjjQsEVw0CBuOb1rBHW-38V4Mcy49-YRoPF9fSa0pfeuJum4iQWC_kEOtntWY5VhMgPHYVchWTD94clqqqZWccKmH41rS5wD60r7bqQZF190IYeZihwA';
+	$main_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url( $product_id, 'full' ) : wc_placeholder_img_src( 'full' );
 
 	// Available Attributes
 	$attributes           = $product->get_attributes();
@@ -80,16 +80,7 @@ while ( have_posts() ) :
 						}
 					}
 
-					// Fallback dummy images if no gallery but we want the UI match
-					if ( ! $attachment_ids ) {
-						$dummies = array(
-							'https://lh3.googleusercontent.com/aida-public/AB6AXuDX-_XH_6a5tI6LkDDWWZFe-5DLkWIQyjA82zgtConqsX9OtToKC_uqL2UmGPRD6mNfEWX1Uy1TNUQaWjmp7nokw5IC_e8DUNzkrjAx9eiCHFVcIAaR3O1sMyhHVnkBZQuYWtsqE1Y00E4TFkipMSHtmswUSZgmwHRRQaurPP7e00HjmL6koB594HVJBvehRmu4ULeQxX1KS5LVFy4-EstxRyc75H8cyboc5aKxC2Al-jDclCREyU21s1YGN6I1XsUqNAHWySGzVf0',
-							'https://lh3.googleusercontent.com/aida-public/AB6AXuD2E9p9jtyNpFyhw2jrYF9b5bxJAfzXxZ-Ok4w8tdS2i4B_DOyNwYhFps9L0797C_8QdqcZCb0qDy3U3y_FJorzq0e9UfC5ZIi2m0EWppTCqVlA-81AAcLdjWsFNxHccnQvNQ1QP_Y8LpC4AOvrESTm5dSknbgKcT4A-eMw3G_6gsNaf2snEg_Xy6B9AGK5qu8NEexuO1-nf-Khw_dD5fpZcA_vGp7v4LiBu9aI7Rsw_HwI1y1zoXUoAyPZbIQao7ghGCW-4hjq5Nw',
-						);
-						foreach ( $dummies as $d ) {
-							echo '<button class="gallery-thumb w-20 md:w-full aspect-[3/4] rounded-lg overflow-hidden border border-transparent hover:border-slate-500 opacity-60 hover:opacity-100 transition-all flex-shrink-0" data-img="' . $d . '"><img class="w-full h-full object-cover" src="' . $d . '"/></button>';
-						}
-					}
+
 					?>
                 </div>
 

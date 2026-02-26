@@ -172,8 +172,7 @@ while ( have_posts() ) :
                                             }
                                         ?>
                                             <?php if ($color_hex) : ?>
-                                                <button type="button" class="variation-btn w-10 h-10 rounded-full border-2 border-transparent hover:border-primary flex items-center justify-center transition-all btn-hover-effect relative group/swatch" data-val="<?php echo esc_attr( $term_slug ); ?>" style="background-color: <?php echo esc_attr($color_hex); ?>;">
-                                                    <span class="sr-only"><?php echo esc_html($term_name); ?></span>
+                                                <button type="button" class="variation-btn w-10 h-10 rounded-full border-2 border-transparent hover:border-primary flex items-center justify-center transition-all btn-hover-effect relative group/swatch" data-val="<?php echo esc_attr( $term_slug ); ?>" style="background-color: <?php echo esc_attr($color_hex); ?>;" aria-label="<?php echo esc_attr($term_name); ?>">
                                                 </button>
                                             <?php else : ?>
                                                 <button type="button" class="variation-btn w-14 h-12 rounded-sm border border-slate-600 flex items-center justify-center text-sm font-medium hover:border-primary hover:text-primary text-slate-300 transition-all btn-hover-effect" data-val="<?php echo esc_attr( $term_slug ); ?>">

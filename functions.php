@@ -18,6 +18,7 @@ define( 'EMERALD_URI', get_template_directory_uri() );
 require_once EMERALD_DIR . '/inc/theme-setup.php';
 require_once EMERALD_DIR . '/inc/enqueue.php';
 require_once EMERALD_DIR . '/inc/performance.php';
+require_once EMERALD_DIR . '/inc/color-swatches.php';
 
 // Include WooCommerce Compatibility (if active)
 if ( class_exists( 'WooCommerce' ) ) {

@@ -163,10 +163,24 @@ while ( have_posts() ) :
 
                                     <!-- Custom UI for Variations (Buttons) -->
                                     <div class="flex flex-wrap gap-3 custom-variation-buttons" data-select-id="<?php echo esc_attr( sanitize_title( $attribute_name ) ); ?>">
-										<?php foreach ( $attr_values as $term ) : ?>
-                                            <button type="button" class="variation-btn w-14 h-12 rounded-sm border border-slate-600 flex items-center justify-center text-sm font-medium hover:border-primary hover:text-primary text-slate-300 transition-all btn-hover-effect" data-val="<?php echo esc_attr( $term ); ?>">
-												<?php echo esc_html( apply_filters( 'woocommerce_variation_option_name', $term ) ); ?>
-                                            </button>
+										<?php foreach ( $attr_values as $term_slug ) : 
+                                            $term_obj = get_term_by('slug', $term_slug, $attribute_name);
+                                            $term_name = $term_obj ? $term_obj->name : apply_filters( 'woocommerce_variation_option_name', $term_slug );
+                                            $color_hex = '';
+                                            if ($attribute_name === 'pa_color' && $term_obj) {
+                                                $color_hex = get_term_meta($term_obj->term_id, 'emerald_color_hex', true);
+                                            }
+                                        ?>
+                                            <?php if ($color_hex) : ?>
+                                                <button type="button" class="variation-btn w-10 h-10 rounded-full border-2 border-transparent hover:border-primary flex items-center justify-center transition-all btn-hover-effect relative group/swatch" data-val="<?php echo esc_attr( $term_slug ); ?>" style="background-color: <?php echo esc_attr($color_hex); ?>;" title="<?php echo esc_attr($term_name); ?>">
+                                                    <span class="sr-only"><?php echo esc_html($term_name); ?></span>
+                                                    <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-black/80 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover/swatch:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"><?php echo esc_html($term_name); ?></div>
+                                                </button>
+                                            <?php else : ?>
+                                                <button type="button" class="variation-btn w-14 h-12 rounded-sm border border-slate-600 flex items-center justify-center text-sm font-medium hover:border-primary hover:text-primary text-slate-300 transition-all btn-hover-effect" data-val="<?php echo esc_attr( $term_slug ); ?>">
+    												<?php echo esc_html( $term_name ); ?>
+                                                </button>
+                                            <?php endif; ?>
 										<?php endforeach; ?>
                                     </div>
                                     <div class="text-red-400 text-xs mt-2 hidden error-msg">Please select a <?php echo esc_html( $attribute_label ); ?></div>

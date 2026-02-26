@@ -172,6 +172,19 @@ header.scrolled .max-w-\[1440px\] {
   background: #D4AF37;
 }
 
+/* Color Swatches */
+.variation-btn.rounded-full.selected {
+  border-color: #D4AF37 !important;
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.4);
+  transform: scale(1.1);
+  background-image: none !important;
+  /* Prevent Tailwind bg-primary/10 from overriding */
+}
+
+.variation-btn.rounded-full:hover {
+  transform: scale(1.1);
+}
+
 /* Add to cart loading spinner */
 @keyframes spin {
   100% {
